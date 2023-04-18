@@ -8,14 +8,25 @@
 import SwiftUI
 
 struct ContentView: View {
-    var emojis = ["🚗", "🚕", "🚙", "🚌", "🚎", "🏎", "🚓", "🚑", "🚒", "🚐", "🛻", "🛴", "🚲", "🛵", "🏍", "🚆", "🚇", "🚔", "🚍", "✈️", "🚁", "🛰", "⛵️", "🚤"]
-    @State var emojisCount = 24
+    let vehicleEmojis = ["🚗", "🚕", "🚙", "🚌", "🚎", "🏎", "🚓", "🚑", "🚒", "🚐", "🛻", "🛴", "🚲", "🛵", "🏍", "🚆", "🚇", "🚔", "🚍", "✈️", "🚁", "🛰", "⛵️", "🚤"]
+    
+    let flagEmojis = ["🏳️", "🏴", "🇨🇳", "🇳🇿", "🏁", "🏳️‍🌈", "🚩", "🇺🇳", "🇮🇪", "🇫🇷", "🇰🇷", "🇺🇸", "🇭🇰", "🏴‍☠️"]
+    
+    let sportEmojis = ["⚽️", "🏀", "🏈", "⚾️", "🪀", "🏏", "🪃", "🪁", "⛸", "🥊", "🛹", "🏓", "🥏", "🏉"]
+    
+    @State var emojis = ["🚗", "🚕", "🚙", "🚌", "🚎", "🏎", "🚓", "🚑", "🚒", "🚐", "🛻", "🛴", "🚲", "🛵", "🏍", "🚆", "🚇", "🚔", "🚍", "✈️", "🚁", "🛰", "⛵️", "🚤"]
+    @State var emojiCount = 24
     
     var body: some View {
         VStack {
+            Text("Memorize!")
+                .font(.largeTitle)
+                .fontWeight(.semibold)
+                
+            Spacer()
             ScrollView {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]) {
-                    ForEach(emojis[0..<emojisCount], id: \.self) { emoji in
+                    ForEach(emojis[0..<emojiCount], id: \.self) { emoji in
                         CardView(content: emoji)
                             .aspectRatio(2/3, contentMode: .fit)
                     }
@@ -23,37 +34,62 @@ struct ContentView: View {
             }
             .foregroundColor(.red)
             Spacer()
-            HStack {
-                remove
+            HStack(alignment: .bottom) {
+                theme1
                 Spacer()
-                add
+                theme2
+                Spacer()
+                theme3
             }
-            .font(.largeTitle)
             .padding(.horizontal)
+            
         }
         .padding(.horizontal)
     }
     
-    var remove: some View {
+    var theme1 : some View {
         Button {
-            if emojisCount > 1 {
-                emojisCount -= 1
-            }
+            emojis = vehicleEmojis.shuffled()
+            emojiCount = vehicleEmojis.count
         } label: {
             VStack {
-                Image(systemName: "minus.circle")
+                Image(systemName: "car")
+                    .font(.largeTitle)
+                Text("Vehicles")
+                    .font(.footnote)
+                    .fontWeight(.medium)
             }
+            
         }
     }
-    var add: some View {
+    var theme2 : some View {
         Button {
-            if emojisCount < emojis.count {
-                emojisCount += 1
-            }
+            emojis = flagEmojis.shuffled()
+            emojiCount = flagEmojis.count
         } label: {
             VStack {
-                Image(systemName: "plus.circle")
+                Image(systemName: "flag")
+                    .font(.largeTitle)
+                Text("Flags")
+                    .font(.footnote)
+                    .fontWeight(.medium)
             }
+            
+        }
+    }
+    var theme3 : some View {
+        Button {
+            emojis = sportEmojis.shuffled()
+            emojiCount = sportEmojis.count
+        } label: {
+            VStack {
+                Image(systemName: "sportscourt")
+                    .font(.largeTitle)
+                Text("Sports")
+                    .font(.footnote)
+                    .fontWeight(.medium)
+            }
+            
         }
     }
 }
@@ -105,7 +141,7 @@ struct CardView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .preferredColorScheme(.dark)
+//            .preferredColorScheme(.dark)
         
         ContentView()
             .preferredColorScheme(.light)
