@@ -50,7 +50,7 @@ struct ContentView: View {
     var theme1 : some View {
         Button {
             emojis = vehicleEmojis.shuffled()
-            emojiCount = vehicleEmojis.count
+            emojiCount = Int.random(in: 4...vehicleEmojis.count)
         } label: {
             VStack {
                 Image(systemName: "car")
@@ -65,7 +65,7 @@ struct ContentView: View {
     var theme2 : some View {
         Button {
             emojis = flagEmojis.shuffled()
-            emojiCount = flagEmojis.count
+            emojiCount = Int.random(in: 4...flagEmojis.count)
         } label: {
             VStack {
                 Image(systemName: "flag")
@@ -80,7 +80,7 @@ struct ContentView: View {
     var theme3 : some View {
         Button {
             emojis = sportEmojis.shuffled()
-            emojiCount = sportEmojis.count
+            emojiCount = Int.random(in: 4...sportEmojis.count)
         } label: {
             VStack {
                 Image(systemName: "sportscourt")
