@@ -25,7 +25,7 @@ struct ContentView: View {
                 
             Spacer()
             ScrollView {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]) {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: widthThatBestFits(cardCount: emojiCount)))]) {
                     ForEach(emojis[0..<emojiCount], id: \.self) { emoji in
                         CardView(content: emoji)
                             .aspectRatio(2/3, contentMode: .fit)
@@ -50,7 +50,7 @@ struct ContentView: View {
     var theme1 : some View {
         Button {
             emojis = vehicleEmojis.shuffled()
-            emojiCount = Int.random(in: 4...vehicleEmojis.count)
+            emojiCount = Int.random(in: 4...vehicleEmojis.count)  // The number of cards is random
         } label: {
             VStack {
                 Image(systemName: "car")
@@ -116,7 +116,20 @@ struct CardView: View {
     }
 }
 
-
+func widthThatBestFits(cardCount: Int) -> CGFloat {
+    switch cardCount {
+    case 4:
+        return 105
+    case 5..<9:
+        return 85
+    case 9..<16:
+        return 65
+    case 16...25:
+        return 55
+    default:
+        return 55
+    }
+}
 
 
 
@@ -140,7 +153,7 @@ struct CardView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+//        ContentView()
 //            .preferredColorScheme(.dark)
         
         ContentView()
